@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MQ3JPRNE3J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MQ3JPRNE3J');
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '554251983962820');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>NOXFLIX | Espere! Veja o que estão falando...</title>
+  <meta name="description" content="Veja os depoimentos reais de quem já assinou e está maratonando mais de 1.000 filmes de terror no NOXFLIX.">
+  <meta name="theme-color" content="#07070B">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-pitch: #040407;
+      --bg-dark: #0A0A10;
+      --accent-red: #E50914;
+      --accent-red-glow: rgba(229, 9, 20, 0.45);
+      --accent-orange: #FF6A00;
+      --accent-green: #10B981;
+      --text-main: #FFFFFF;
+      --text-muted: #A3A3B2;
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-pitch);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Grão de cinema sutil */
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(229, 9, 20, 0.04) 1px, transparent 1px);
+      background-size: 3px 3px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* BARRA SUPERIOR DE RETENÇÃO (URGÊNCIA & ATENÇÃO) */
+    .retention-top-bar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(180deg, #1C0C10 0%, #0D0608 100%);
+      border-bottom: 1.5px solid rgba(229, 9, 20, 0.55);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 25px rgba(229, 9, 20, 0.35);
+      z-index: 900;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .retention-inner {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .retention-alert {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 9, 20, 0.2);
+      border: 1px solid rgba(229, 9, 20, 0.6);
+      padding: 3px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #FF7B80;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-red);
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .retention-title {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+
+    .retention-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* CONTAINER PRINCIPAL MOBILE-FIRST */
+    .mobile-app-wrapper {
+      width: 100%;
+      max-width: 480px;
+      background-color: #000000;
+      position: relative;
+      z-index: 2;
+      box-shadow: 
+        0 0 80px rgba(229, 9, 20, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+      padding-bottom: 90px;
+    }
+
+    /* SEÇÃO DE IMAGENS NATIVAS - SEM BORDAS DE FOTO, INTEGRADAS AO LAYOUT */
+    .app-config-stream {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: #000000;
+    }
+
+    .stream-block {
+      width: 100%;
+      position: relative;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stream-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: top;
+      image-rendering: -webkit-optimize-contrast;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* FAIXA DE INTERAÇÃO ENTRE AS IMAGENS */
+    .in-stream-cta {
+      background: linear-gradient(180deg, #090508 0%, #17080B 50%, #090508 100%);
+      padding: 22px 18px;
+      border-top: 1px solid rgba(229, 9, 20, 0.35);
+      border-bottom: 1px solid rgba(229, 9, 20, 0.35);
+      text-align: center;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(229, 9, 20, 0.2);
+    }
+
+    .in-stream-kicker {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .in-stream-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .in-stream-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #B0121B 0%, #E50914 50%, #FF6A00 100%);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 24px rgba(229, 9, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .in-stream-btn:hover, .in-stream-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(229, 9, 20, 0.7);
+    }
+
+    /* SEÇÃO DE CONVERSÃO FINAL NO FINAL DA ROLAGEM */
+    .final-offer-section {
+      background: linear-gradient(180deg, #000000 0%, #15080C 40%, #0A0A10 100%);
+      padding: 30px 18px 20px;
+      border-top: 1.5px solid rgba(229, 9, 20, 0.4);
+      text-align: center;
+    }
+
+    .final-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 106, 0, 0.16);
+      border: 1px solid rgba(255, 106, 0, 0.45);
+      color: #FFB380;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .final-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .final-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    /* CARDS DE PLANO RÁPIDOS */
+    .plan-card-mobile {
+      background: rgba(18, 18, 26, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      text-align: left;
+      position: relative;
+    }
+
+    .plan-card-mobile.featured {
+      background: linear-gradient(165deg, rgba(38, 12, 16, 0.95) 0%, rgba(18, 12, 22, 0.95) 100%);
+      border: 2px solid var(--accent-orange);
+      box-shadow: 0 10px 30px rgba(229, 9, 20, 0.35);
+    }
+
+    .plan-card-mobile .card-tag {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      background: linear-gradient(135deg, #FF6A00, #E50914);
+      color: #FFFFFF;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .card-price {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #FFFFFF;
+    }
+
+    .card-price small {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .card-features {
+      list-style: none;
+      margin: 10px 0 14px;
+      font-size: 0.8125rem;
+      color: #D1D5DB;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-buy-vitalicio {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-buy-mensal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .trust-footer-strip {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    /* BARRA FIXA INFERIOR MOBILE */
+    .mobile-bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(8, 8, 12, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1.5px solid rgba(229, 9, 20, 0.6);
+      padding: 10px 16px;
+      z-index: 999;
+      box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .bar-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bar-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--accent-orange);
+      text-transform: uppercase;
+    }
+
+    .bar-price {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .bar-price span {
+      font-size: 0.7rem;
+      color: #FFB380;
+    }
+
+    .bar-cta-btn {
+      background: linear-gradient(135deg, #B0121B, #E50914, #FF6A00);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(229, 9, 20, 0.55);
+      animation: pulseButton 2s infinite;
+    }
+
+    @keyframes pulseButton {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* MODAL DE UPGRADE VITALÍCIO POR R$3,90 */
+    .upgrade-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(4, 4, 7, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(12px, 3vh, 24px) 16px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+      box-sizing: border-box;
+    }
+
+    .upgrade-modal-backdrop.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .upgrade-modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      max-height: calc(100dvh - 32px);
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: linear-gradient(175deg, #1C0C10 0%, #0F0F16 45%, #07070B 100%);
+      border: 1.5px solid rgba(229, 9, 20, 0.55);
+      border-radius: 16px;
+      padding: clamp(22px, 4.5vw, 34px) clamp(18px, 4vw, 28px);
+      box-shadow: 
+        0 25px 60px -10px rgba(0, 0, 0, 0.98),
+        0 0 50px rgba(229, 9, 20, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      text-align: center;
+      transform: scale(0.93) translateY(12px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    .upgrade-modal-backdrop.is-active .upgrade-modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .upgrade-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #A3A3B2;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .upgrade-modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 106, 0, 0.16);
+      border: 1px solid rgba(255, 106, 0, 0.45);
+      color: #FFB380;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .upgrade-modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .upgrade-modal-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .upgrade-modal-desc strong {
+      color: #FFFFFF;
+    }
+
+    .upgrade-modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn-modal-green {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-modal-red {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(140, 14, 22, 0.85) 0%, rgba(90, 8, 14, 0.95) 100%);
+      border: 1.5px solid rgba(229, 9, 20, 0.55);
+      color: #FFD2D5;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .upgrade-modal-security {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- Meta Pixel Noscript Fallback -->
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=554251983962820&ev=PageView&noscript=1"
+  /></noscript>
+
+  <!-- Efeito de grão de cinema -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- BARRA DE RETENÇÃO DO TOPO (EXIT INTENT MOBILE) -->
+  <header class="retention-top-bar">
+    <div class="retention-inner">
+      <div class="retention-alert">
+        <span class="pulse-dot"></span>
+        <span>Espere! Não feche esta página</span>
+      </div>
+      <h1 class="retention-title">Veja os depoimentos reais de quem já está dentro</h1>
+      <p class="retention-subtitle">Mais de 1.000 filmes de terror sem cortes · Assista no celular e TV</p>
+    </div>
+  </header>
+
+  <!-- CONTAINER MOBILE INTEGRADO -->
+  <main class="mobile-app-wrapper">
+
+    <!-- FLUXO SEQUENCIAL DE TELAS NATIVAS (DO 01 AO 04) -->
+    <div class="app-config-stream">
+
+      <!-- TELA 01 (TOPO): NOXFLIX LOGO, RECURSOS E DEPOIMENTOS EM CHAT -->
+      <section class="stream-block" id="tela-01">
+        <img 
+          src="/assets/aistudio/01_60206505.png" 
+          alt="NOXFLIX - Quem assina não se arrepende. Avaliações de membros e catálogo exclusivo." 
+          class="stream-img" 
+          loading="eager"
+          fetchpriority="high"
+        />
+      </section>
+
+      <!-- FAIXA INTERMEDIÁRIA DE CONEXÃO RÁPIDA -->
+      <div class="in-stream-cta">
+        <span class="in-stream-kicker">Acesso Imediato</span>
+        <p class="in-stream-text">O catálogo definitivo do terror aguarda você no seu celular</p>
+        <a href="https://pay.cakto.com.br/3hes6hc_1244301" class="in-stream-btn">
+          <span>Garantir Vitalício por R$19,90</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
+      <!-- TELA 02: DEPOIMENTOS DE CLIENTES REAIS E REPRODUÇÃO NO CELULAR -->
+      <section class="stream-block" id="tela-02">
+        <img 
+          src="/assets/aistudio/02_a608770d.png" 
+          alt="Depoimentos de clientes reais sobre a qualidade e variedade do catálogo NOXFLIX." 
+          class="stream-img" 
+          loading="lazy"
+        />
+      </section>
+
+      <!-- TELA 03: FEED DE EXPERIÊNCIA E HISTÓRIAS DE ASSINANTES -->
+      <section class="stream-block" id="tela-03">
+        <img 
+          src="/assets/aistudio/03_62c393ce.png" 
+          alt="É por isso que a gente faz o NOXFLIX. O que nossos assinantes estão falando." 
+          class="stream-img" 
+          loading="lazy"
+        />
+      </section>
+
+      <!-- TELA 04: ÁUDIOS, RECOMENDAÇÕES E REPRODUÇÃO EM QUALQUER DISPOSITIVO -->
+      <section class="stream-block" id="tela-04">
+        <img 
+          src="/assets/aistudio/04_99f5e967.png" 
+          alt="NOXFLIX - Quem assiste recomenda. Terror de verdade onde e quando você quiser." 
+          class="stream-img" 
+          loading="lazy"
+        />
+      </section>
+
+    </div>
+
+    <!-- SEÇÃO FINAL DE CHECKOUT E ESCOLHA DE PLANO -->
+    <section class="final-offer-section" id="oferta">
+      <div class="final-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFB380"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span>Oferta Especial de Retenção</span>
+      </div>
+
+      <h2 class="final-title">Escolha seu Acesso e Comece Agora</h2>
+      <p class="final-desc">Acesso liberado na hora no seu e-mail e WhatsApp via Pix.</p>
+
+      <!-- CARD PLANO VITALÍCIO (RECOMENDADO) -->
+      <div class="plan-card-mobile featured">
+        <span class="card-tag">Mais Escolhido</span>
+        <div class="card-row">
+          <span class="card-name" style="color: var(--accent-orange);">Plano Vitalício</span>
+          <span class="card-price">R$ 19,90 <small>pagamento único</small></span>
+        </div>
+        <ul class="card-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6A00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Acesso para SEMPRE (sem mensalidades)</span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6A00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>+1.000 filmes em 4K e Full HD</span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6A00" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Download liberado para assistir offline</span>
+          </li>
+        </ul>
+        <a href="https://pay.cakto.com.br/3hes6hc_1244301" class="btn-buy-vitalicio">
+          <span>Quero o Vitalício por R$19,90</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+
+      <!-- CARD PLANO MENSAL (ABRE O POP-UP DE UPGRADE) -->
+      <div class="plan-card-mobile">
+        <div class="card-row">
+          <span class="card-name">Plano 30 Dias</span>
+          <span class="card-price">R$ 9,90 <small>/mês</small></span>
+        </div>
+        <ul class="card-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3B2" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Acesso temporário por 30 dias</span>
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3A3B2" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Não permite download offline</span>
+          </li>
+        </ul>
+        <a href="https://pay.cakto.com.br/i8qrcxq_1244301" class="btn-buy-mensal" id="btnPlanMensalMobile">
+          Experimentar por R$9,90
+        </a>
+      </div>
+
+      <div class="trust-footer-strip">
+        <span>🔒 Pagamento Seguro</span>
+        <span>⚡ Liberação no Pix</span>
+        <span>🛡️ 7 Dias de Garantia</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BARRA FIXA FLUTUANTE INFERIOR -->
+  <aside class="mobile-bottom-bar" id="bottomStickyBar">
+    <div class="bar-info">
+      <span class="bar-tag">Promoção Especial</span>
+      <span class="bar-price">R$ 19,90 <span>vitalício</span></span>
+    </div>
+    <a href="https://pay.cakto.com.br/3hes6hc_1244301" class="bar-cta-btn">
+      Quero Entrar
+    </a>
+  </aside>
+
+  <!-- POP-UP MODAL: UPGRADE PARA PLANO VITALÍCIO -->
+  <div class="upgrade-modal-backdrop" id="upgradeModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="upgradeModalTitle" aria-hidden="true">
+    <div class="upgrade-modal-card">
+      <button class="upgrade-modal-close" id="upgradeModalCloseBtn" aria-label="Fechar pop-up">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="upgrade-modal-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFB380" stroke="#FF6A00" stroke-width="1.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Oferta Especial de Upgrade</span>
+      </div>
+
+      <h3 class="upgrade-modal-title" id="upgradeModalTitle">
+        Ative agora o Plano Vitalício por mais R$3,90.
+      </h3>
+
+      <p class="upgrade-modal-desc">
+        Por apenas mais <strong>R$ 3,90 uma única vez</strong>, você troca 30 dias temporários por <strong>acesso permanente vitalício</strong>, com downloads offline liberados e sem mensalidades futuras.
+      </p>
+
+      <div class="upgrade-modal-actions">
+        <!-- BOTÃO VERDE -->
+        <a href="https://pay.cakto.com.br/vpijhwm" class="btn-modal-green" id="upgradeModalAcceptBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Sim! Upgrade por R$3,90</span>
+        </a>
+
+        <!-- BOTÃO VERMELHO -->
+        <a href="https://pay.cakto.com.br/i8qrcxq_1244301" class="btn-modal-red" id="upgradeModalDeclineBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span>Não, prefiro pagar R$9,90 por 30 Dias</span>
+        </a>
+      </div>
+
+      <p class="upgrade-modal-security">
+        🔒 Pagamento 100% seguro via Cakto · Acesso imediato · Garantia incondicional de 7 dias
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Gerenciamento da Modal de Upgrade
+    const modalBackdrop = document.getElementById('upgradeModalBackdrop');
+    const modalCloseBtn = document.getElementById('upgradeModalCloseBtn');
+    const btnPlanMensal = document.getElementById('btnPlanMensalMobile');
+
+    function openModal(e) {
+      if (e) e.preventDefault();
+      if (!modalBackdrop) return;
+      modalBackdrop.classList.add('is-active');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (!modalBackdrop) return;
+      modalBackdrop.classList.remove('is-active');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    if (btnPlanMensal) {
+      btnPlanMensal.addEventListener('click', openModal);
+    }
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeModal);
+    }
+
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', function(e) {
+        if (e.target === modalBackdrop) closeModal();
+      });
+    }
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modalBackdrop.classList.contains('is-active')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

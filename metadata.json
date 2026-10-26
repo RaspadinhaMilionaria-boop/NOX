@@ -1,0 +1,6 @@
+{
+  "name": "NOXFLIX - Streaming de Filmes de Terror",
+  "description": "+1.000 Filmes de Terror Dublado e Legendado por Apenas R$9,90. A Netflix dos filmes de terror.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
