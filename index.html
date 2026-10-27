@@ -1940,6 +1940,16 @@
       }
     }
 
+    /* Destaque sutil de chegada na seção de preços */
+    @keyframes arrivalPulse {
+      0% { box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+      50% { box-shadow: 0 0 50px rgba(229, 9, 20, 0.35); }
+      100% { box-shadow: 0 0 0 rgba(229, 9, 20, 0); }
+    }
+    .planos-highlight-arrival .pricing-grid {
+      animation: arrivalPulse 1.8s ease-out;
+    }
+
     /* Suporte a prefers-reduced-motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1956,6 +1966,61 @@
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=554251983962820&ev=PageView&noscript=1"
   /></noscript>
+
+  <!-- ==========================================================================
+       BACK-REDIRECT IMEDIATO: INTERCEPTA O BOTÃO 'VOLTAR' PARA MOSTRAR OS DEPOIMENTOS
+       ========================================================================== -->
+  <script>
+    (function initBackRedirect() {
+      // Destino: Página mobile especial com depoimentos e imagens 01 a 04
+      var redirectTarget = '/especial.html' + (window.location.search || '');
+
+      // Evita loop se já estiver na página de depoimentos
+      if (window.location.pathname.indexOf('especial.html') !== -1) return;
+
+      var redirected = false;
+      function executeBackRedirect() {
+        if (!redirected) {
+          redirected = true;
+          window.location.href = redirectTarget;
+        }
+      }
+
+      function pushTrap() {
+        try {
+          history.pushState({ noxBackTrap: 1 }, document.title, window.location.href);
+        } catch (e) {}
+      }
+
+      // Injeta histórico imediatamente no carregamento da página
+      pushTrap();
+
+      // Reforça histórico após breve intervalo
+      setTimeout(pushTrap, 300);
+
+      // Reforça nas primeiras interações de toque e rolagem (essencial para mobile Chrome e Safari)
+      var gestureEvents = ['touchstart', 'touchend', 'click', 'scroll', 'pointerdown'];
+      function onGesture() {
+        pushTrap();
+        gestureEvents.forEach(function(evt) {
+          window.removeEventListener(evt, onGesture);
+        });
+      }
+      gestureEvents.forEach(function(evt) {
+        window.addEventListener(evt, onGesture, { passive: true, once: true });
+      });
+
+      // Intercepta quando o usuário aperta 'Voltar' no navegador, celular ou swipe
+      window.addEventListener('popstate', function() {
+        executeBackRedirect();
+      });
+
+      // Fallback onpopstate direto
+      window.onpopstate = function() {
+        executeBackRedirect();
+      };
+    })();
+  </script>
 
   <!-- Grão cinematográfico analógico sutil -->
   <div class="film-grain" aria-hidden="true"></div>
@@ -2729,28 +2794,28 @@
     // preencher com notas reais da crítica
     const MOVIES_DATABASE = [
       // 10 Mais Assistidos do Ano (Top 5 Ranking)
-      { title: "Hereditário", year: 2018, genre: "Sobrenatural", rating: "8.9", tag: "Obra-prima", color: "#2B0B0E", image: "/src/assets/images/top1_hereditario.jpg" },
-      { title: "A Substância", year: 2024, genre: "Body Horror", rating: "8.7", tag: "Sensação 2024", color: "#1D0B20", image: "/src/assets/images/top2_substancia.jpg" },
-      { title: "Midsommar", year: 2019, genre: "Folk Horror", rating: "8.6", tag: "Perturbador", color: "#28180A", image: "/src/assets/images/top3_midsommar.jpg" },
-      { title: "Longlegs", year: 2024, genre: "Psicológico", rating: "8.4", tag: "Mais Buscado", color: "#11161B", image: "/src/assets/images/top4_longlegs.jpg" },
-      { title: "Terrifier 3", year: 2024, genre: "Slasher", rating: "8.1", tag: "Extremo", color: "#2E0A0A", image: "/src/assets/images/top5_terrifier3.jpg" },
-      { title: "Smile 2", year: 2024, genre: "Sobrenatural", rating: "8.2", tag: "Sucesso", color: "#1F0C10", image: "/src/assets/images/assistidos_smile2.jpg" },
-      { title: "Nosferatu", year: 2024, genre: "Gótico", rating: "8.8", tag: "Lançamento", color: "#101016", image: "/src/assets/images/assistidos_nosferatu.jpg" },
-      { title: "Corra!", year: 2017, genre: "Psicológico", rating: "9.1", tag: "Vencedor Oscar", color: "#1A0F15", image: "/src/assets/images/assistidos_corra.jpg" },
-      { title: "Um Lugar Silencioso", year: 2018, genre: "Creature", rating: "8.5", tag: "Tensão Pura", color: "#151B12", image: "/src/assets/images/assistidos_um_lugar_silencioso.webp" },
-      { title: "Bárbaro", year: 2022, genre: "Home Invasion", rating: "8.3", tag: "Surpreendente", color: "#22110D", image: "/src/assets/images/assistidos_barbaro.webp" },
+      { title: "Hereditário", year: 2018, genre: "Sobrenatural", rating: "8.9", tag: "Obra-prima", color: "#2B0B0E", image: "/assets/images/top1_hereditario.jpg" },
+      { title: "A Substância", year: 2024, genre: "Body Horror", rating: "8.7", tag: "Sensação 2024", color: "#1D0B20", image: "/assets/images/top2_substancia.jpg" },
+      { title: "Midsommar", year: 2019, genre: "Folk Horror", rating: "8.6", tag: "Perturbador", color: "#28180A", image: "/assets/images/top3_midsommar.jpg" },
+      { title: "Longlegs", year: 2024, genre: "Psicológico", rating: "8.4", tag: "Mais Buscado", color: "#11161B", image: "/assets/images/top4_longlegs.jpg" },
+      { title: "Terrifier 3", year: 2024, genre: "Slasher", rating: "8.1", tag: "Extremo", color: "#2E0A0A", image: "/assets/images/top5_terrifier3.jpg" },
+      { title: "Smile 2", year: 2024, genre: "Sobrenatural", rating: "8.2", tag: "Sucesso", color: "#1F0C10", image: "/assets/images/assistidos_smile2.jpg" },
+      { title: "Nosferatu", year: 2024, genre: "Gótico", rating: "8.8", tag: "Lançamento", color: "#101016", image: "/assets/images/assistidos_nosferatu.jpg" },
+      { title: "Corra!", year: 2017, genre: "Psicológico", rating: "9.1", tag: "Vencedor Oscar", color: "#1A0F15", image: "/assets/images/assistidos_corra.jpg" },
+      { title: "Um Lugar Silencioso", year: 2018, genre: "Creature", rating: "8.5", tag: "Tensão Pura", color: "#151B12", image: "/assets/images/assistidos_um_lugar_silencioso.webp" },
+      { title: "Bárbaro", year: 2022, genre: "Home Invasion", rating: "8.3", tag: "Surpreendente", color: "#22110D", image: "/assets/images/assistidos_barbaro.webp" },
 
       // 10 Aclamados pela Crítica
-      { title: "O Exorcista", year: 1973, genre: "Possessão", rating: "9.3", tag: "O Maior Clássico", color: "#241014", image: "/src/assets/images/aclamados_o_exorcista.jpg" },
-      { title: "O Iluminado", year: 1980, genre: "Psicológico", rating: "9.2", tag: "Cult Supremo", color: "#1E180A", image: "/src/assets/images/aclamados_o_iluminado.jpg" },
-      { title: "A Bruxa", year: 2015, genre: "Folk Horror", rating: "8.8", tag: "A24 Clássico", color: "#151614", image: "/src/assets/images/aclamados_a_bruxa.jpg" },
-      { title: "Invocação do Mal", year: 2013, genre: "Sobrenatural", rating: "8.7", tag: "Terror Moderno", color: "#0E1520", image: "/src/assets/images/aclamados_invocacao_do_mal.jpg" },
-      { title: "It: A Coisa", year: 2017, genre: "Creature", rating: "8.5", tag: "Fenômeno", color: "#220D11", image: "/src/assets/images/aclamados_it_a_coisa.jpg" },
-      { title: "Fale Comigo", year: 2023, genre: "Sobrenatural", rating: "8.6", tag: "Revelação", color: "#170D22", image: "/src/assets/images/aclamados_fale_comigo.jpg" },
-      { title: "O Babadook", year: 2014, genre: "Psicológico", rating: "8.4", tag: "Aclamado", color: "#12151A", image: "/src/assets/images/aclamados_o_babadook.webp" },
-      { title: "Corrente do Mal", year: 2014, genre: "Sobrenatural", rating: "8.3", tag: "Tensão Sonora", color: "#1F1212", image: "/src/assets/images/aclamados_corrente_do_mal.jpg" },
-      { title: "Pânico", year: 1996, genre: "Slasher", rating: "8.7", tag: "Ícone Pop", color: "#14141E", image: "/src/assets/images/aclamados_panico.jpg" },
-      { title: "A Entidade", year: 2012, genre: "Found Footage", rating: "8.5", tag: "Mais Assustador", color: "#1B0B10", image: "/src/assets/images/aclamados_a_entidade.jpg" },
+      { title: "O Exorcista", year: 1973, genre: "Possessão", rating: "9.3", tag: "O Maior Clássico", color: "#241014", image: "/assets/images/aclamados_o_exorcista.jpg" },
+      { title: "O Iluminado", year: 1980, genre: "Psicológico", rating: "9.2", tag: "Cult Supremo", color: "#1E180A", image: "/assets/images/aclamados_o_iluminado.jpg" },
+      { title: "A Bruxa", year: 2015, genre: "Folk Horror", rating: "8.8", tag: "A24 Clássico", color: "#151614", image: "/assets/images/aclamados_a_bruxa.jpg" },
+      { title: "Invocação do Mal", year: 2013, genre: "Sobrenatural", rating: "8.7", tag: "Terror Moderno", color: "#0E1520", image: "/assets/images/aclamados_invocacao_do_mal.jpg" },
+      { title: "It: A Coisa", year: 2017, genre: "Creature", rating: "8.5", tag: "Fenômeno", color: "#220D11", image: "/assets/images/aclamados_it_a_coisa.jpg" },
+      { title: "Fale Comigo", year: 2023, genre: "Sobrenatural", rating: "8.6", tag: "Revelação", color: "#170D22", image: "/assets/images/aclamados_fale_comigo.jpg" },
+      { title: "O Babadook", year: 2014, genre: "Psicológico", rating: "8.4", tag: "Aclamado", color: "#12151A", image: "/assets/images/aclamados_o_babadook.webp" },
+      { title: "Corrente do Mal", year: 2014, genre: "Sobrenatural", rating: "8.3", tag: "Tensão Sonora", color: "#1F1212", image: "/assets/images/aclamados_corrente_do_mal.jpg" },
+      { title: "Pânico", year: 1996, genre: "Slasher", rating: "8.7", tag: "Ícone Pop", color: "#14141E", image: "/assets/images/aclamados_panico.jpg" },
+      { title: "A Entidade", year: 2012, genre: "Found Footage", rating: "8.5", tag: "Mais Assustador", color: "#1B0B10", image: "/assets/images/aclamados_a_entidade.jpg" },
 
       // 10 Indies que Você Precisa Ver
       { title: "Late Night with the Devil", year: 2024, genre: "Found Footage", rating: "8.6", tag: "Ousado", color: "#27120A" },
@@ -2988,40 +3053,92 @@
       });
 
       // ========================================================================
-      // 17. BACK-REDIRECT: DIRECIONA PARA EXPERIÊNCIA MOBILE AO TENTAR SAIR
+      // 17. ROLAGEM RITMADA ATÉ OS PLANOS (PERMITE VISUALIZAR AS SEÇÕES PULADAS)
       // ========================================================================
-      (function setupBackRedirect() {
-        const TARGET_REDIRECT_URL = '/especial.html';
+      function slowScrollToPlanos(e) {
+        if (e) e.preventDefault();
+        const target = document.getElementById('planos');
+        if (!target) return;
 
-        // Evita loop se já estiver no redirect
-        if (window.location.pathname.endsWith('especial.html')) return;
+        const headerOffset = 64; // Compensação da barra fixa superior
+        const startY = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = target.getBoundingClientRect().top + startY - headerOffset;
+        const distance = targetY - startY;
 
-        let hasRedirected = false;
+        // Se já estiver na seção de preços
+        if (Math.abs(distance) < 40) return;
 
-        function pushExitState() {
-          try {
-            history.pushState({ noxBackRedirect: true }, document.title, window.location.href);
-          } catch (e) {
-            // Ignore se restrito pelo navegador
+        // Duração calibrada: ritmo deliberado para a pessoa enxergar com clareza as seções
+        // puladas (vitrine do app, catálogo real, ranking top 5, diferenciais 4K)
+        const duration = Math.min(2400, Math.max(1800, Math.abs(distance) * 0.55));
+        let startTime = null;
+        let animationFrameId = null;
+        let isCancelled = false;
+
+        const prevScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+
+        function cancelScroll() {
+          isCancelled = true;
+          if (animationFrameId) cancelAnimationFrame(animationFrameId);
+          document.documentElement.style.scrollBehavior = prevScrollBehavior;
+          window.removeEventListener('wheel', cancelScroll);
+          window.removeEventListener('touchmove', cancelScroll);
+          window.removeEventListener('pointerdown', cancelScroll);
+        }
+
+        window.addEventListener('wheel', cancelScroll, { passive: true });
+        window.addEventListener('touchmove', cancelScroll, { passive: true });
+        window.addEventListener('pointerdown', cancelScroll, { passive: true });
+
+        // Easing quadrático suave: aceleração macia, velocidade de leitura intermediária e desaceleração suave
+        function easeInOutQuad(t) {
+          return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        }
+
+        function step(currentTime) {
+          if (isCancelled) return;
+          if (!startTime) startTime = currentTime;
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = easeInOutQuad(progress);
+
+          window.scrollTo(0, startY + (distance * ease));
+
+          if (elapsed < duration) {
+            animationFrameId = requestAnimationFrame(step);
+          } else {
+            document.documentElement.style.scrollBehavior = prevScrollBehavior;
+            window.removeEventListener('wheel', cancelScroll);
+            window.removeEventListener('touchmove', cancelScroll);
+            window.removeEventListener('pointerdown', cancelScroll);
+            try {
+              history.pushState(null, null, '#planos');
+            } catch (err) {}
+            // Efeito visual sutil de confirmação de chegada na seção de planos
+            target.classList.add('planos-highlight-arrival');
+            setTimeout(function() {
+              target.classList.remove('planos-highlight-arrival');
+            }, 1800);
           }
         }
 
-        // Empurra o estado inicial para capturar o primeiro 'Voltar'
-        pushExitState();
+        animationFrameId = requestAnimationFrame(step);
+      }
 
-        // Reforça nas primeiras interações de toque e rolagem (essencial para mobile Safari e Chrome)
-        window.addEventListener('touchstart', pushExitState, { once: true, passive: true });
-        window.addEventListener('scroll', pushExitState, { once: true, passive: true });
-        window.addEventListener('click', pushExitState, { once: true, passive: true });
-
-        // Intercepta quando o usuário toca ou clica no botão Voltar do navegador/celular
-        window.addEventListener('popstate', function() {
-          if (!hasRedirected) {
-            hasRedirected = true;
-            window.location.href = TARGET_REDIRECT_URL;
-          }
-        });
-      })();
+      // Conecta a primeira CTA (heroCtaBtn) e CTAs do topo
+      const heroCtaBtn = document.getElementById('heroCtaBtn');
+      if (heroCtaBtn) {
+        heroCtaBtn.addEventListener('click', slowScrollToPlanos);
+      }
+      const headerCtaBtn = document.querySelector('.btn-header-cta');
+      if (headerCtaBtn) {
+        headerCtaBtn.addEventListener('click', slowScrollToPlanos);
+      }
+      const headerLoginBtn = document.querySelector('.btn-login');
+      if (headerLoginBtn && headerLoginBtn.getAttribute('href') === '#planos') {
+        headerLoginBtn.addEventListener('click', slowScrollToPlanos);
+      }
 
     });
   </script>
